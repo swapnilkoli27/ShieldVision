@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News.com</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/newslg.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='assets/nebg.jpg') }}");
+            background-size: cover;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #0b3d91;
+            color: white;
+            border-bottom: 3px solid #ffcc00;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .top-bar img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        .top-bar h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 50%;
+        }
+        .news-upload {
+            margin: 100px auto 20px;
+            width: 40%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .news-upload input, .news-upload button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .news-upload button {
+            border: none;
+            background-color: #ffcc00;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .news-upload button:hover {
+            background-color: #e6b800;
+        }
+        .news-post {
+            background: white;
+            padding: 15px;
+            margin: 10px auto;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .news-post:hover {
+            transform: scale(1.02);
+        }
+        .news-post img, .news-post video {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .news-post p {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        .news-post button {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .news-post button:hover {
+            background: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+<header class="news-head">
+    <div class="top-bar">
+        <div class="icon">
+            <i class="fa-solid fa-bars"></i>
+            <h6>Explore</h6>
+        </div>
+        <img src="{{ url_for('static', filename='assets/newslg.png') }}" alt="logo">
+        <h2>News.com</h2>
+    </div>
+</header>
+
+<div class="news-upload">
+    <form action="/" method="POST" enctype="multipart/form-data" onsubmit="clearPreview()">
+        <label>Upload Image
+            <input type="file" name="news_image" accept="image/*" id="newsImageInput" onchange="previewNewsMedia(event, 'image')">
+        </label>
+        <label>Upload Video
+            <input type="file" name="news_video" accept="video/*" id="newsVideoInput" onchange="previewNewsMedia(event, 'video')">
+        </label>
+        <input type="text" name="news_text" id="newsTextInput" placeholder="Enter your news text...">
+        <img id="imagePreview" style="display: none; width: 100%; max-height: 400px;">
+        <video id="videoPreview" controls style="display: none; width: 100%; max-height: 400px;"></video>
+        <button type="submit">Post</button>
+    </form>
+</div>
+
+<section id="newsPostSection">
+    {% for post in news_posts %}
+        <div class="news-post">
+            {% if post.image_result %}
+                <p>{{ post.image_result|safe }}</p>
+            {% endif %}
+            {% if post.video_result %}
+                <p>{{ post.video_result|safe }}</p>
+            {% endif %}
+
+            {% if post.video %}
+                <video controls>
+                    <source src="{{ url_for('static', filename=post.video) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p><strong>Video Analysis:</strong> {{ post.video_result }}</p>
+            {% endif %}
+            {% if post.text %}
+                <p><strong>News Text:</strong> {{ post.text }}</p>
+                <p><strong>Text Analysis:</strong> {{ post.text_result }}</p>
+            {% endif %}
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="get">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</section>
+
+<script>
+    function previewNewsMedia(event, type) {
+        let file = event.target.files[0];
+        if (!file) return;
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            if (type === "image") {
+                document.getElementById("imagePreview").src = e.target.result;
+                document.getElementById("imagePreview").style.display = "block";
+                document.getElementById("videoPreview").style.display = "none";
+            } else if (type === "video") {
+                document.getElementById("videoPreview").src = e.target.result;
+                document.getElementById("videoPreview").style.display = "block";
+                document.getElementById("imagePreview").style.display = "none";
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearPreview() {
+        document.getElementById("imagePreview").style.display = "none";
+        document.getElementById("videoPreview").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

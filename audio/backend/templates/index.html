@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/whats.png">
+    <title>Whatsapp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body{
+    height: 100vh; 
+    margin: 0;
+    background-color: rgb(249, 248, 245);
+    background-size: cover; 
+    background-attachment: fixed; 
+    flex-direction: row;
+}
+.top-bar {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(166, 232, 242, 0.9);
+    border-bottom: 5px solid #046f66;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    color: black;
+}
+header{
+    border-bottom: #0a0909;
+}
+.top-bar img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.top-bar h2{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    margin-right: 95%;
+    font-size: 30px;
+
+} 
+.profile{
+    /* border: 10px solid black; */
+    border-radius: 10px;
+    height: 60px;
+    width: 100%;
+    margin-top: 8%;
+    background-color: rgba(207, 215, 209, 0.5);
+    box-shadow: 2px 3px 2px 3px rgb(143, 139, 139);
+    padding: 10px;
+    display: flex;
+justify-content: space-between;
+align-items: center;
+/* position: fixed; */
+    
+}
+.profile img{
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+.profile h3{
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ color: rgb(107, 60, 60);
+ font-size: larger;
+ 
+}
+.pro,.icons{
+    display: flex;
+/* justify-content: space-between; */
+align-items: center;
+}
+.icons i{
+    margin-right: 40px;
+}
+.chat {
+    margin-top: 20px;
+    padding: 10px;
+    /* display: flex; */
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    /* background-color: #046f66; */
+    border: 20px solid black;
+    height: 100%;
+    background-image: url('{{ url_for("static", filename="assets/whbg.jpg") }}');
+
+}
+.firs1t-box{
+    background-color:white;
+    height: 70px;
+    border-radius: 20px;
+    padding-left: 20px;
+    align-items: center;
+    width: 50%;
+   margin-bottom: 40px;
+    padding-top: 17px;
+    
+    margin-right: 45%;
+    display: flex;
+    flex-direction: row;
+}
+/* .first3-box{
+    margin-bottom: 40%;
+    margin-left: 45%;
+} */
+.first3-box h3{
+
+    align-items: center;
+}
+.firs2t-box{
+    background-color: rgb(196, 241, 178);
+    height: 70px;
+    border-radius: 20px;
+    padding-left: 20px;
+    align-items: center;
+    width: 50%;
+    margin-left: 45%;
+    margin-bottom: 40px;
+    padding: 10px;
+    
+}
+.firs2t-box h3{
+    height: fit-content;
+    
+    width: fit-content;
+   
+}
+
+#check{
+  
+    margin-left: 95%;
+    color: gray;
+  
+}
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: rgba(244, 248, 245, 0.9);
+    box-shadow: 2px 3px 2px 3px rgb(143, 139, 139);
+    position: fixed;
+    
+    width: 10%;
+    border-top: 1px solid #ccc;
+    margin-left: 85%;
+    border-radius: 20px;
+}
+
+.bottom-nav i {
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+}
+
+        .fa-microphone, .fa-upload {
+            font-size: 30px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .fa-microphone { color: black; }
+        .fa-upload { color: blue; }
+        input[type="file"] { display: none; }
+        .delete-btn {
+            color: rgb(187, 184, 184);
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <img src="{{ url_for('static', filename='assets/whats.png') }}" alt="logo">
+            <div class="nav-bottom">
+                <nav class="bottom-nav">
+                    <i class="fa-solid fa-microphone" onclick="toggleRecording()"></i>
+
+                    <!-- Upload Icon for Selecting Audio from PC -->
+                    <i class="fa-solid fa-upload" onclick="document.getElementById('audioUpload').click();"></i>
+                
+                    <!-- Hidden File Input for Uploading Audio -->
+                    <input type="file" id="audioUpload" accept="audio/*">
+                
+                </nav>
+            </div>
+            <h2>Whatsapp</h2>
+        </div>
+    </header>
+    <div class="profile">
+        <div class="pro">
+            <img src="{{ url_for('static', filename='assets/user1.jpg') }}" alt="">
+
+        <h3>User</h3>
+        </div>
+        <div class="icons">
+            <i class="fa-solid fa-video"></i>
+        <i class="fa-solid fa-phone"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <!-- chat section -->
+    <div class="chat">
+        <div class="firs1t-box">
+            <h3>hello how are you</h3>
+        </div>
+        <div class="firs2t-box">
+            <h3>Hi, who is this?</h3>
+            <h4 id="check">Send</h4>
+        </div>
+        <div class="first3-box">
+           
+        </div>
+        <div class="first4-box">
+        </div>
+        <div class="first5-box">
+        </div>
+        <div class="first6-box">
+        </div>
+        
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

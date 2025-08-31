@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Shield Vision</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+
+  <style>
+    /* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    color: #000;
+    background: linear-gradient(45deg, #EDE9E3, #E7D7C9, #D4B2A7, #CDC6C3, #A38F85);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+  }
+  
+  /* Gradient Animation */
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+  
+  /* Section Styling */
+  #content {
+    /* padding: 120px 20px 40px; */
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  .section {
+    display: none;
+  }
+  
+  .section.active {
+    display: block;
+  }
+  
+  /* Slider Container */
+  .slider-container {
+    overflow: hidden;
+    width: 80%;
+    margin: 40px auto;
+    border-radius: 20px;
+  }
+  
+  .slider {
+    display: flex;
+    transition: transform 1s ease;
+  }
+  
+  .slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  img {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Section Containers */
+  .section-container {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(20px);  /* Blur effect */
+    border-radius: 20px;          /* Rounded corners */
+    padding: 40px;
+    margin: 20px auto;            /* Centers the container */
+    width: 80%;                   /* 80% width of the parent section */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  }
+  
+  .section-container h1 {
+    font-size: 2rem;
+    color: #A38F85;
+  }
+  
+  .section-container p {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  #project-info {
+    background-color: #EDE9E3;
+    padding: 40px 20px; /* Reduce top padding */
+    text-align: center;
+    margin-top: -30px; /* Moves the section upwards */
+    margin-bottom: 10px;
+}
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #A38F85;
+  }
+  
+  p {
+    font-size: 1.2rem;
+  }
+  
+  .info-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .info-card {
+    background-color: #FFF;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-card img {
+    width: 100%;
+    border-radius: 12px;
+  }
+  
+  </style>
+</head>
+
+<body>
+  
+  <nav class="navbar">
+    <ul>
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="http://127.0.0.1:5001" target="_blank">Instagram Detector</a>
+      </li>
+      <li><a href="http://localhost:5000/" target="_blank">News Detection</a></li>
+      <li><a href="http://127.0.0.1:5002" target="_blank">Audio Detection</a></li>
+    </ul>
+  </nav>
+  <div id="content">
+    <section id="home" class="section active">
+
+    <section id="instagram" class="section">
+      <h1>Instagram Model</h1>
+      <p>Analyze Instagram posts for trends, user engagement, and brand performance using AI-powered algorithms.</p>
+    </section>
+
+    <section id="news" class="section">
+      <h1>News Detection</h1>
+      <p>Identify misinformation and detect fake news articles using NLP and AI algorithms.</p>
+    </section>
+
+    <section id="audio" class="section">
+      <h1>Audio Detection</h1>
+      <p>Analyze audio clips to detect patterns, speech content, and sound events using AI.</p>
+    </section>
+
+    <div id="content">
+
+    <section id="project-info">
+      <h1>Welcome to The Shield Vision</h1>
+      <p>The Shield Vision is an advanced AI-powered platform designed to detect and prevent the spread of deepfake media across various platforms.</p>
+      <div class="info-container">
+          <div class="info-card">
+              <img src="assets/3.jpg" alt="Social Media Analysis">
+              <h3>Social Media Analysis</h3>
+              <p>Detects and flags deepfake content on social media platforms to stop the spread of misinformation in real-time.</p>
+          </div>
+          <div class="info-card">
+              <img src="assets/1.jpg" alt="Fake News Detection">
+              <h3>Fake News Detection</h3>
+              <p>The News Detection module is to identify and flag fake news and misinformation by analyzing headlines and shared media.</p>
+          </div>
+          <div class="info-card">
+              <img src="assets/2.jpg" alt="Audio Recognition">
+              <h3>Audio Recognition</h3>
+              <p>The Audio Detection module is to analyze audio content in real-time and identifying manipulated or synthetic audio.</p>
+          </div>
+      </div>
+  </section>
+</div>
+
+  <!-- Instagram Model Section -->
+<section id="instagram" class="section">
+  <div class="section-container">
+    <h1>Instagram Model</h1>
+    <p>Analyze Instagram posts for trends, user engagement, and brand performance using AI-powered algorithms.</p>
+  </div>
+</section>
+    
+  </div>
+</section>
+
+<!-- Audio Detection Section -->
+<section id="audio" class="section">
+  <div class="section-container">
+    <h1>Audio Detection</h1>
+    <p>Analyze audio clips to detect patterns, speech content, and sound events using AI.</p>
+  </div>
+</section>
+
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>
